@@ -24,6 +24,9 @@ func (r *BrewRecipeRepository) FindByID(id uint) (*model.BrewRecipe, error) {
 	return &rec, nil
 }
 
+// Update persists a recipe.
+func (r *BrewRecipeRepository) Update(rec *model.BrewRecipe) error { return translate(r.db.Save(rec).Error) }
+
 // List filters recipes by device/keyword.
 func (r *BrewRecipeRepository) List(device, keyword string, page, pageSize int) ([]model.BrewRecipe, int64, error) {
 	var items []model.BrewRecipe

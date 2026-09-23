@@ -13,4 +13,6 @@ func registerRecipeRoutes(v1 *gin.RouterGroup, cfg *config.Config, h *handler.Re
 	recipes.GET("", h.List)
 	recipes.GET("/:id", h.Get)
 	recipes.POST("", middleware.AuthRequired(cfg), limiter.Limit(), h.Create)
+	recipes.PUT("/:id", middleware.AuthRequired(cfg), h.Update)
+	recipes.POST("/:id/fork", middleware.AuthRequired(cfg), limiter.Limit(), h.Fork)
 }

@@ -7,3 +7,7 @@ export function listRecipes(params: { page?: number; page_size?: number; device?
 }
 export function getRecipe(id: number | string) { return request.get<never, BrewRecipe>(`/recipes/${id}`) }
 export function createRecipe(payload: Partial<BrewRecipe>) { return request.post<never, BrewRecipe>('/recipes', payload) }
+export function updateRecipe(id: number | string, payload: Partial<BrewRecipe>) {
+  return request.put<never, BrewRecipe>(`/recipes/${id}`, payload)
+}
+export function forkRecipe(id: number | string) { return request.post<never, BrewRecipe>(`/recipes/${id}/fork`) }

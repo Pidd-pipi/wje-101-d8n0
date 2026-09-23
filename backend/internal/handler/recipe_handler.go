@@ -79,3 +79,42 @@ func (h *RecipeHandler) Create(c *gin.Context) {
 	}
 	c.JSON(http.StatusCreated, dto.OK(created))
 }
+
+// Update handles PUT /recipes/:id.
+func (h *RecipeHandler) Update(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.Error(util.NewAppError(http.StatusBadRequest, constants.CodeBadRequest, "invalid recipe id"))
+		return
+	}
+	var req dto.RecipeUpdateRequest
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.Error(util.NewAppError(http.StatusBadRequest, constants.CodeBadRequest, constants.MsgInvalidParam+": "+err.Error()))
+		return
+	}
+	r := &model.BrewRecipe{
+		Name: req.Name, Device: req.Device, WaterTemp: req.WaterTemp,
+		GrindSize: req.GrindSize, Ratio: req.Ratio, Steps: req.Steps,
+	}
+	updated, err := h.svc.Update(middleware.GetUserID(c), uint(id), r)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, dto.OK(updated))
+}
+
+// Fork handles POST /recipes/:id/fork.
+func (h *RecipeHandler) Fork(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.Error(util.NewAppError(http.StatusBadRequest, constants.CodeBadRequest, "invalid recipe id"))
+		return
+	}
+	dup, err := h.svc.Fork(middleware.GetUserID(c), uint(id))
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusCreated, dto.OK(dup))
+}
