@@ -31,6 +31,7 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/useUserStore'
 import { useAuth } from '@/hooks/useAuth'
@@ -39,6 +40,10 @@ import UserAvatar from '@/components/common/UserAvatar.vue'
 const store = useUserStore()
 const { isLoggedIn, user } = useAuth()
 const router = useRouter()
+
+onMounted(() => {
+  store.fetchProfile()
+})
 
 function onCommand(cmd: string) {
   if (cmd === 'profile') {

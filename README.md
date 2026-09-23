@@ -132,6 +132,8 @@ wje-101/
 | GET | /api/v1/recipes | 公开 | 冲煮配方列表/筛选 |
 | GET | /api/v1/recipes/:id | 公开 | 冲煮配方详情 |
 | POST | /api/v1/recipes | 登录（限流） | 分享冲煮配方 |
+| PUT | /api/v1/recipes/:id | 登录 | 编辑自己的配方 |
+| POST | /api/v1/recipes/:id/copy | 登录（限流） | 复制公开配方为我的版本 |
 | GET | /api/v1/beans | 公开 | 咖啡豆库列表/筛选 |
 | POST | /api/v1/beans | admin（限流） | 新增咖啡豆 |
 | PUT | /api/v1/beans/:id | admin | 更新咖啡豆 |

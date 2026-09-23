@@ -12,5 +12,8 @@ func registerRecipeRoutes(v1 *gin.RouterGroup, cfg *config.Config, h *handler.Re
 	recipes := v1.Group("/recipes")
 	recipes.GET("", h.List)
 	recipes.GET("/:id", h.Get)
-	recipes.POST("", middleware.AuthRequired(cfg), limiter.Limit(), h.Create)
+	auth := recipes.Group("", middleware.AuthRequired(cfg))
+	auth.POST("", limiter.Limit(), h.Create)
+	auth.PUT("/:id", h.Update)
+	auth.POST("/:id/copy", limiter.Limit(), h.Copy)
 }

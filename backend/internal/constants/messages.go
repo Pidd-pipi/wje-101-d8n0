@@ -8,6 +8,8 @@ const (
 	MsgNoteUpdated        = "品鉴笔记已更新"
 	MsgNoteDeleted        = "品鉴笔记已删除"
 	MsgRecipeCreated      = "冲煮配方已分享"
+	MsgRecipeUpdated      = "冲煮配方已更新"
+	MsgRecipeCopied       = "配方已复制为我的版本"
 	MsgBeanCreated        = "豆种已添加"
 	MsgBeanUpdated        = "豆种已更新"
 	MsgCommentAdded       = "评论成功"
